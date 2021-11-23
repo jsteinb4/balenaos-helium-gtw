@@ -17,8 +17,6 @@ RUN if [ -z "$SPI_SPEED" ] ; then echo SPI_SPEED has not been set, resuming... ;
 RUN git clone https://github.com/Lora-net/packet_forwarder.git
 COPY lora_pkt_fwd.c /build/packet_forwarder/lora_pkt_fwd/src
 COPY global_conf_US.json .
-COPY global_conf_EU.json .
-RUN if [ "$LORA_REGION" = "EU868" ] ; then echo EU config detected && mv global_conf_EU.json global_conf.json ; fi
 RUN if [ "$LORA_REGION" = "US915" ] ; then echo US config detected && mv global_conf_US.json global_conf.json ; fi
 RUN if [ -z "$MINER_URL" ] ; then echo MINER_URL has not been set, resuming... ; else sed -i -e "s/helium-miner/$MINER_URL/g" global_conf.json ; fi
 RUN if [ -z "$LORA_UDP" ] ; then echo LORA_UDP has not been set, resuming... ; else sed -i -e "s/1680/$LORA_UDP/g" global_conf.json ; fi
